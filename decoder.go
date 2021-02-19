@@ -70,6 +70,8 @@ func (d *Decoder) UnMarshal(reader *csv.Reader, bean interface{}) error {
 	}
 	if d.header == nil {
 		row, err := reader.Read()
+		// remove bom if exist
+		row[0] = string(bomCheck([]byte(row[0])))
 		if err != nil {
 			return err
 		}
@@ -85,8 +87,6 @@ func (d *Decoder) UnMarshal(reader *csv.Reader, bean interface{}) error {
 		} else if err != nil {
 			return err
 		}
-		// remove bom if exist
-		row[0] = string(bomCheck([]byte(row[0])))
 		beanV, err := d.unMarshal(row, beanT)
 		if err != nil {
 			return err
