@@ -1,6 +1,6 @@
 package csvreader
 
-BOM_UTF8 := []byte{239, 187, 191}
+var BOM_UTF8 = []byte{239, 187, 191}
 
 func bomCheck(data []]byte) []byte{
 	if bytes.Equal(data[:3], BOM_UTF8){
